@@ -1,6 +1,3 @@
-
-Sure, here's a charming and concise description of the project:
-
 🌊 Kitesurf Wind Forecast Application 🏄‍♂️
 
 Welcome to our delightful Kitesurf Wind Forecast Application! 🌬️ Whether you're a seasoned kitesurfer or just dipping your toes into the sport, our app is your trusty companion for planning your next thrilling adventure on the waves.
