@@ -1,91 +1,56 @@
-import React, { useEffect } from "react";
-import SearchLocation from "./components/SearchLocation";
-import TableAllDates from "./components/TableAllDates";
-import { useKitesurfingState } from './state/useKitesurfingState';
-import { findBestDays, getWindDirectionSymbol } from "./utils/weatherUtils";
-import { fetchKitesurfingInfo, fetchCitySuggestions } from "./hook/fetchApi";
-import {
-  handleCityInputChange,
-  handleCitySelect,
-  handleWindDirectionClick,
-  handleWindDirectionSelect,
-  handleRemoveWindDirection,
-  handleWindSpeedChange
-} from "./hook/eventHandlers";
-import BestDayCard from "./components/BestDayCard";
+// App1.jsx
+import React, { useEffect } from 'react';
+import { useKitesurfingInfoContext } from './context/kitesurfingInfoContext';
+import { handleCityInputChange, handleCityClick } from './hook/eventHandlers';
+import SearchCity from './components/Search/SearchCity';
 
+const App1 = () => {
+  const { kitesurfingInfo, setKitesurfingInfo } = useKitesurfingInfoContext();
+  const { searchCity, citySearchResult } = kitesurfingInfo;
 
-
-const KitesurfingInfo = () => {
-  const {
-    cityInput,
-    setCityInput,
-    citySuggestions,
-    setCitySuggestions,
-    selectedCity,
-    setSelectedCity,
-    windDirectionDropdownOpen,
-    setWindDirectionDropdownOpen,
-    selectedWindDirections,
-    setSelectedWindDirections,
-    windSpeed,
-    setWindSpeed,
-    kitesurfingInfo,
-    setKitesurfingInfo,
-    bestDays,
-    setBestDays,
-    allDays,
-    setAllDays,
-  } = useKitesurfingState();
-
-  // Fetch All datas for KiteSurf Info (Table, Best day)
   useEffect(() => {
-    fetchKitesurfingInfo({ setKitesurfingInfo, findBestDays, setBestDays, setAllDays })
-  }, []);
+    const fetchCities = async () => {
+      try {
+        const response = await fetch(
+          `https://geocoding-api.open-meteo.com/v1/search?name=${searchCity}`,
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch cities");
+        }
+        const data = await response.json();
+        setKitesurfingInfo(prevState => ({
+          ...prevState,
+          citySearchResult: data.results,
+        }));
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+        setKitesurfingInfo(prevState => ({
+          ...prevState,
+          citySearchResult: [],
+        }));
+      }
+    };
 
-  // Fetch specific datas for SearchLocation
-  useEffect(() => {
-    if (cityInput) {
-      fetchCitySuggestions({
-        cityInput,
-        handleCityInputChange,
-        citySuggestions,
-        handleCitySelect,
-        selectedWindDirections,
-        handleWindDirectionClick,
-        windDirectionDropdownOpen,
-        handleWindDirectionSelect,
-        windSpeed,
-        setWindSpeed });
+    if (searchCity) {
+      console.log('Search City:', searchCity);
+      fetchCities();
     } else {
-      setCitySuggestions([]);
+      setKitesurfingInfo(prevState => ({
+        ...prevState,
+        citySearchResult: [],
+      }));
     }
-  }, [cityInput]);
-
+  }, [searchCity, setKitesurfingInfo]);
 
   return (
-    <div className="container mx-auto py-8">
-      <SearchLocation
-        cityInput={cityInput}
-        handleCityInputChange={(e) => handleCityInputChange(e, setCityInput)}
-        citySuggestions={citySuggestions}
-        handleCitySelect={handleCitySelect}
-        selectedWindDirections={selectedWindDirections}
-        handleWindDirectionClick={() => handleWindDirectionClick(setWindDirectionDropdownOpen, windDirectionDropdownOpen)}
-        windDirectionDropdownOpen={windDirectionDropdownOpen}
-        handleWindDirectionSelect={(direction) => handleWindDirectionSelect({ direction, selectedWindDirections, setSelectedWindDirections, setWindDirectionDropdownOpen })}
-        windSpeed={windSpeed}
-        setWindSpeed={setWindSpeed}
-        fetchCitySuggestions={fetchCitySuggestions}
-        setCitySuggestions={setCitySuggestions}
-      />
-
-      <>
-        <BestDayCard bestDays={bestDays} getWindDirectionSymbol={getWindDirectionSymbol} />
-        <TableAllDates allDays={allDays} getWindDirectionSymbol={getWindDirectionSymbol} />
-      </>
-    </div>
+    <SearchCity
+      setKitesurfingInfo={setKitesurfingInfo}
+      searchCity={searchCity}
+      citySearchResult={citySearchResult}
+      handleCityInputChange={handleCityInputChange}
+      handleCityClick={handleCityClick}
+    />
   );
 };
 
-export default KitesurfingInfo;
+export default App1;
