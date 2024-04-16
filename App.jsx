@@ -15,6 +15,7 @@ const App = () => {
     dailyData, //All datas for specific city (forecast 16 days with wind direction and speed)
     bestDays, //Datas for all possible kitesurfing days
     selectedWindDirection, //User wind direction selection
+    windSpeed, //User wind speed selection
   } = kitesurfingInfo;
 
   useEffect(() => {
@@ -30,14 +31,14 @@ const App = () => {
   }, [searchCity, coordinates, setKitesurfingInfo]);
 
   useEffect(() => {
-    if (dailyData && selectedWindDirection.length > 0) {
-      const { suitableDays } = findBestDays(dailyData, selectedWindDirection); // Pass selectedWindDirection to findBestDays
+    if (dailyData && selectedWindDirection.length > 0 && windSpeed) {
+      const { suitableDays } = findBestDays(dailyData, selectedWindDirection, windSpeed); // Pass selectedWindDirection to findBestDays
       setKitesurfingInfo(prevState => ({
         ...prevState,
         bestDays: suitableDays,
       }));
     }
-  }, [dailyData, selectedWindDirection, setKitesurfingInfo]);
+  }, [dailyData, selectedWindDirection, windSpeed, setKitesurfingInfo]);
 
   return (
     <>

@@ -4,7 +4,7 @@ export const getWindDirectionSymbol = (angle) => {
   return directions[index];
 };
 
-export const findBestDays = (dailyData, selectedWindDirection) => {
+export const findBestDays = (dailyData, selectedWindDirection, windSpeed) => {
   const suitableDays = [];
 
   if (dailyData && dailyData.length > 0) {
@@ -13,7 +13,9 @@ export const findBestDays = (dailyData, selectedWindDirection) => {
 
       const isSuitable = (
         // Check if the wind direction of the day is included in the selected wind direction
-        selectedWindDirection && selectedWindDirection.includes(getWindDirectionSymbol(day.wind_direction_10m_dominant))
+        selectedWindDirection
+        && selectedWindDirection.includes(getWindDirectionSymbol(day.wind_direction_10m_dominant))
+        && day.wind_speed_10m_max >= windSpeed
       );
 
       if (isSuitable) {

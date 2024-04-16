@@ -1,6 +1,7 @@
 import React from 'react';
 
 const BestDayCard = ({ bestDays, getWindDirectionSymbol }) => {
+  console.log('BestDayCard bestDays', bestDays);
   return (
     <div id="bestDayComponent" className="flex flex-wrap mb-4">
       {bestDays && bestDays.map((day, index) => (
