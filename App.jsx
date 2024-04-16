@@ -7,6 +7,7 @@ import SearchCity from './components/Search/SearchCity';
 import BestDayCard from './components/BestDayCard';
 import TableAllDates from "./components/TableAllDates";
 import { findBestDays, getWindDirectionSymbol } from './utils/weatherUtils';
+import SearchLocation from './components/Search/SearchLocation';
 
 const App = () => {
   const { kitesurfingInfo, setKitesurfingInfo } = useKitesurfingInfoContext();
@@ -15,7 +16,10 @@ const App = () => {
     citySearchResult, //Reults of a specific city (with coordinates)
     coordinates, //Save coordinate from a specific city
     dailyData, //All datas for specific city (forecast 16 days with wind direction and speed)
-    bestDays,
+    bestDays, //Datas for all possible kitesurfing days
+    // WindDirection
+    selectedWindDirections,
+    windDirectionDropdownOpen,
   } = kitesurfingInfo;
 
   useEffect(() => {
@@ -45,12 +49,23 @@ const App = () => {
   return (
     <>
     <h1 className='text-center'>Kitesurfing Weather Forecast</h1>
-      <SearchCity
+      {/* <SearchCity
         setKitesurfingInfo={setKitesurfingInfo}
         searchCity={searchCity}
         citySearchResult={citySearchResult}
         handleCityInputChange={handleCityInputChange}
         handleCityClick={handleCityClick}
+      /> */}
+      <SearchLocation
+        // ---- SearchCity
+        setKitesurfingInfo={setKitesurfingInfo}
+        searchCity={searchCity}
+        citySearchResult={citySearchResult}
+        handleCityInputChange={handleCityInputChange}
+        handleCityClick={handleCityClick}
+        // ---- WindDirection
+        selectedWindDirections={selectedWindDirections}
+        windDirectionDropdownOpen={windDirectionDropdownOpen}
       />
       <BestDayCard
         bestDays={bestDays}

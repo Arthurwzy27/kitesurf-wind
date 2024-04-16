@@ -6,13 +6,17 @@ export const useKitesurfingInfoContext = () => useContext(KitesurfingInfoContext
 
 export const KitesurfingInfoProvider = ({ children }) => {
   const [kitesurfingInfo, setKitesurfingInfo] = useState({
+    // Used in SearchCity
     searchCity: "",
     citySearchResult: [],
     coordinates: null,
     dailyData: [],
     bestDays: [],
-    windDirectionDropdownOpen: false,
-    selectedWindDirections: [],
+    // ---- END SearchCity ----
+    // Used in WindDirection
+    windDropdownOpen: false,
+    selectedWindDirection: [],
+    // ---- END WindDirection ----
     windSpeed: "",
   });
 

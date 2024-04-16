@@ -13,17 +13,25 @@ export const handleCityClick = (city, setKitesurfingInfo) => {
   }));
 };
 
-export const handleWindDirectionClick = (setWindDirectionDropdownOpen, windDirectionDropdownOpen) => {
-  setWindDirectionDropdownOpen(!windDirectionDropdownOpen);
+// WIND DIRECTION COMPONENT
+
+export const toggleWindDropdown = (setKitesurfingInfo, windDropdownOpen) => {
+  setKitesurfingInfo(prevState => ({
+    ...prevState,
+    windDropdownOpen: !windDropdownOpen
+  }));
 };
 
-export const handleWindDirectionSelect = ({ direction, selectedWindDirections, setSelectedWindDirections, setWindDirectionDropdownOpen }) => {
-  if (!selectedWindDirections.includes(direction)) {
-    setSelectedWindDirections([...selectedWindDirections, direction]);
+export const handleDirectionSelect = (setKitesurfingInfo, selectedWindDirection, direction) => {
+  if (selectedWindDirection.includes(direction)) {
+    setKitesurfingInfo(prevState => ({
+      ...prevState,
+      selectedWindDirection: prevState.selectedWindDirection.filter((dir) => dir !== direction)
+    }));
+  } else {
+    setKitesurfingInfo(prevState => ({
+      ...prevState,
+      selectedWindDirection: [...prevState.selectedWindDirection, direction]
+    }));
   }
-  setWindDirectionDropdownOpen(false);
-};
-
-export const handleRemoveWindDirection = (direction, setSelectedWindDirections, selectedWindDirections) => {
-  setSelectedWindDirections(selectedWindDirections.filter((dir) => dir !== direction));
 };
