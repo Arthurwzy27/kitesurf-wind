@@ -11,8 +11,8 @@ export const KitesurfingInfoProvider = ({ children }) => {
     coordinates: null,
     dailyData: [],
     bestDays: [],
-    windDirectionDropdownOpen: false,
-    selectedWindDirections: [],
+    windDropdownOpen: false,
+    selectedWindDirection: [],
     windSpeed: "",
   });
 

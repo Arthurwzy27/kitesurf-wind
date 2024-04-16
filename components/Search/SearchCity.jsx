@@ -1,12 +1,15 @@
 import React from 'react';
+import { useKitesurfingInfoContext } from '../../context/kitesurfingInfoContext';
+import { handleCityInputChange, handleCityClick } from '../../hook/eventHandlers';
 
-const SearchCity = ({
-  setKitesurfingInfo,
-  searchCity,
-  citySearchResult,
-  handleCityInputChange,
-  handleCityClick,
-}) => {
+
+const SearchCity = () => {
+  const { kitesurfingInfo, setKitesurfingInfo } = useKitesurfingInfoContext();
+  const {
+    searchCity,
+    citySearchResult,
+  } = kitesurfingInfo;
+
   return (
     <div>
       <input
@@ -29,9 +32,6 @@ const SearchCity = ({
           ))}
         </ul>
       )}
-      {/* <button onClick={() => handleCityClick(citySearchResult[0], setKitesurfingInfo)}>
-        Search
-      </button> */}
     </div>
   );
 };

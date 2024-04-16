@@ -1,21 +1,20 @@
 // App1.jsx
 import React, { useEffect } from 'react';
 import { useKitesurfingInfoContext } from './context/kitesurfingInfoContext';
-import { handleCityInputChange, handleCityClick } from './hook/eventHandlers';
 import { fetchCities, fetchAllDaysCity } from './hook/fetchApi';
-import SearchCity from './components/Search/SearchCity';
+import { findBestDays, getWindDirectionSymbol } from './utils/weatherUtils';
+import SearchLocation from './components/Search/SearchLocation';
 import BestDayCard from './components/BestDayCard';
 import TableAllDates from "./components/TableAllDates";
-import { findBestDays, getWindDirectionSymbol } from './utils/weatherUtils';
 
 const App = () => {
   const { kitesurfingInfo, setKitesurfingInfo } = useKitesurfingInfoContext();
   const {
     searchCity, //searchCity user input value
-    citySearchResult, //Reults of a specific city (with coordinates)
     coordinates, //Save coordinate from a specific city
     dailyData, //All datas for specific city (forecast 16 days with wind direction and speed)
-    bestDays,
+    bestDays, //Datas for all possible kitesurfing days
+    selectedWindDirection, //User wind direction selection
   } = kitesurfingInfo;
 
   useEffect(() => {
@@ -30,28 +29,20 @@ const App = () => {
     fetchData();
   }, [searchCity, coordinates, setKitesurfingInfo]);
 
-  useEffect(() => { //Trying to get from algorithm all best days for Kitesurfing
-    if (dailyData) {
-      // console.log('useEffect(dailyData):', dailyData);
-      const { suitableDays } = findBestDays(dailyData);
-      // console.log('useEffect(suitableDays):', suitableDays);
+  useEffect(() => {
+    if (dailyData && selectedWindDirection.length > 0) {
+      const { suitableDays } = findBestDays(dailyData, selectedWindDirection); // Pass selectedWindDirection to findBestDays
       setKitesurfingInfo(prevState => ({
         ...prevState,
         bestDays: suitableDays,
       }));
     }
-  }, [dailyData, setKitesurfingInfo]);
+  }, [dailyData, selectedWindDirection, setKitesurfingInfo]);
 
   return (
     <>
     <h1 className='text-center'>Kitesurfing Weather Forecast</h1>
-      <SearchCity
-        setKitesurfingInfo={setKitesurfingInfo}
-        searchCity={searchCity}
-        citySearchResult={citySearchResult}
-        handleCityInputChange={handleCityInputChange}
-        handleCityClick={handleCityClick}
-      />
+      <SearchLocation />
       <BestDayCard
         bestDays={bestDays}
         getWindDirectionSymbol={getWindDirectionSymbol}
