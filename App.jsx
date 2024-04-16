@@ -32,9 +32,9 @@ const App = () => {
 
   useEffect(() => { //Trying to get from algorithm all best days for Kitesurfing
     if (dailyData) {
-      console.log('useEffect(dailyData):', dailyData);
+      // console.log('useEffect(dailyData):', dailyData);
       const { suitableDays } = findBestDays(dailyData);
-      console.log('useEffect(suitableDays):', suitableDays);
+      // console.log('useEffect(suitableDays):', suitableDays);
       setKitesurfingInfo(prevState => ({
         ...prevState,
         bestDays: suitableDays,
@@ -44,6 +44,7 @@ const App = () => {
 
   return (
     <>
+    <h1 className='text-center py-2'>Kitesurfing Weather Forecast</h1>
       <SearchCity
         setKitesurfingInfo={setKitesurfingInfo}
         searchCity={searchCity}

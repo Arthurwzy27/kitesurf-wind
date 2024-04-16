@@ -1,29 +1,39 @@
-import React from 'react'
+import React from 'react';
 
-const SearchCity = ({ inputValue, handleInputChange, handleKeyDown, handleSearch, citySuggestions, handleCitySelect }) => {
+const SearchCity = ({
+  setKitesurfingInfo,
+  searchCity,
+  citySearchResult,
+  handleCityInputChange,
+  handleCityClick,
+}) => {
   return (
-    <div id="cityInputLabel" className="mb-4">
-      <label htmlFor="cityInput" className="block font-bold mb-2">Select City:</label>
+    <div>
       <input
-        className="border p-2"
+        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
         type="text"
-        value={inputValue}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
-        placeholder="Search cities..."
+        value={searchCity}
+        onChange={(e) => handleCityInputChange(e, setKitesurfingInfo)}
+        placeholder="Enter city name"
       />
-      <button onClick={handleSearch} className="border p-2 ml-2">Search</button>
-      {citySuggestions?.length > 0 && (
-        <ul className="absolute z-10 bg-white border rounded mt-1 w-full">
-          {citySuggestions.map((city, index) => (
-            <li key={index} onClick={() => handleCitySelect(city.name)} className="cursor-pointer p-2 hover:bg-gray-100">
-              {city.name}
+      {citySearchResult && citySearchResult.length > 0 && (
+        <ul>
+          {citySearchResult.map((city) => (
+            <li
+              key={city.id}
+              className="cursor-pointer py-1 px-3 hover:bg-gray-100"
+              onClick={() => handleCityClick(city, setKitesurfingInfo)}
+            >
+              {city.name}, {city.country}
             </li>
           ))}
         </ul>
       )}
+      {/* <button onClick={() => handleCityClick(citySearchResult[0], setKitesurfingInfo)}>
+        Search
+      </button> */}
     </div>
-  )
-}
+  );
+};
 
-export default SearchCity
+export default SearchCity;
