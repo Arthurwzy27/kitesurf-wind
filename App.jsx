@@ -1,4 +1,4 @@
-// App1.jsx
+// App.js
 import React, { useEffect } from 'react';
 import { useKitesurfingInfoContext } from './context/kitesurfingInfoContext';
 import { fetchCities, fetchAllDaysCity } from './hook/fetchApi';
@@ -41,19 +41,25 @@ const App = () => {
   }, [dailyData, selectedWindDirection, windSpeed, setKitesurfingInfo]);
 
   return (
-    <>
-    <h1 className='text-center'>Kitesurfing Weather Forecast</h1>
-      <SearchLocation />
-      <BestDayCard
-        bestDays={bestDays}
-        getWindDirectionSymbol={getWindDirectionSymbol}
-      />
-      <TableAllDates
-        searchCity={searchCity}
-        dailyData={dailyData}
-        getWindDirectionSymbol={getWindDirectionSymbol}
-      />
-    </>
+    // <div className="min-h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-red-500">
+    // <div className="min-h-screen bg-gradient-to-br from-orange-400 to-orange-600">
+    // <div className="min-h-screen bg-gradient-to-br from-teal-400 to-teal-600">
+    // <div className="min-h-screen bg-gradient-to-br from-indigo-400 to-indigo-600">
+    <div className="bg-cover bg-no-repeat bg-center min-h-screen" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1620152174993-40a74a7e24c2?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
+      <div className="container mx-auto py-8">
+        <h1 className="text-center text-white text-4xl font-bold mb-8">Kitesurfing Weather Forecast</h1>
+        <SearchLocation />
+        <BestDayCard
+          bestDays={bestDays}
+          getWindDirectionSymbol={getWindDirectionSymbol}
+        />
+        <TableAllDates
+          searchCity={searchCity}
+          dailyData={dailyData}
+          getWindDirectionSymbol={getWindDirectionSymbol}
+        />
+      </div>
+    </div>
   );
 };
 
