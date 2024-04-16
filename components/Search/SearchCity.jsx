@@ -32,9 +32,6 @@ const SearchCity = () => {
           ))}
         </ul>
       )}
-      {/* <button onClick={() => handleCityClick(citySearchResult[0], setKitesurfingInfo)}>
-        Search
-      </button> */}
     </div>
   );
 };

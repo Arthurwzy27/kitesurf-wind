@@ -1,3 +1,4 @@
+// SEARCH CITY COMPONENT
 export const handleCityInputChange = (e, setKitesurfingInfo) => {
   setKitesurfingInfo(prevState => ({
     ...prevState,
@@ -14,7 +15,6 @@ export const handleCityClick = (city, setKitesurfingInfo) => {
 };
 
 // WIND DIRECTION COMPONENT
-
 export const toggleWindDropdown = (setKitesurfingInfo, windDropdownOpen) => {
   setKitesurfingInfo(prevState => ({
     ...prevState,
