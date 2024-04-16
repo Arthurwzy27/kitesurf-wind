@@ -17,7 +17,7 @@ const SearchCity = ({
         placeholder="Enter city name"
       />
       {citySearchResult && citySearchResult.length > 0 && (
-        <ul>
+        <ul className="mt-2 border border-gray-300 rounded-md shadow-md">
           {citySearchResult.map((city) => (
             <li
               key={city.id}
