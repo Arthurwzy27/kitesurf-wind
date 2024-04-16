@@ -17,7 +17,7 @@ export const handleWindDirectionClick = (setWindDirectionDropdownOpen, windDirec
   setWindDirectionDropdownOpen(!windDirectionDropdownOpen);
 };
 
-export const handleWindDirectionSelect = ({direction, selectedWindDirections, setSelectedWindDirections, setWindDirectionDropdownOpen}) => {
+export const handleWindDirectionSelect = ({ direction, selectedWindDirections, setSelectedWindDirections, setWindDirectionDropdownOpen }) => {
   if (!selectedWindDirections.includes(direction)) {
     setSelectedWindDirections([...selectedWindDirections, direction]);
   }

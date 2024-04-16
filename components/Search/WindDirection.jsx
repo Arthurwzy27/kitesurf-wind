@@ -1,15 +1,6 @@
 import React from 'react'
 
-const WindDirection = ({
-  selectedWindDirections,
-  handleWindDirectionClick,
-  setWindDirectionDropdownOpen,
-  windDirectionDropdownOpen,
-  handleWindDirectionSelect
-}) => {
-  
-  const directionString = selectedWindDirections ? selectedWindDirections.join(', ') : '';
-
+const WindDirection = ({ selectedWindDirections, handleWindDirectionClick, setWindDirectionDropdownOpen, windDirectionDropdownOpen, handleWindDirectionSelect }) => {
   return (
     <div id="windDirectionInputLabel" className="mb-4">
       <label className="block font-bold mb-2">Select Wind Direction:</label>
@@ -17,7 +8,7 @@ const WindDirection = ({
         <input
           type="text"
           readOnly
-          value={directionString}
+          value={selectedWindDirections.join(", ")}
           onClick={() => handleWindDirectionClick(setWindDirectionDropdownOpen, windDirectionDropdownOpen)}
           className="border p-2 w-full"
           placeholder="Click to select wind directions..."
