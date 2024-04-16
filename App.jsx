@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <>
-    <h1 className='text-center py-2'>Kitesurfing Weather Forecast</h1>
+    <h1 className='text-center'>Kitesurfing Weather Forecast</h1>
       <SearchCity
         setKitesurfingInfo={setKitesurfingInfo}
         searchCity={searchCity}
