@@ -1,23 +1,31 @@
 import React, { useState, useEffect } from 'react';
+import { useKitesurfingInfoContext } from '../../context/kitesurfingInfoContext'
+import WindDirection from './WindDirection';
+import SearchCity from './SearchCity';
+import WindSpeed from './WindSpeed';
 
-const SearchLocation = ({
-  cityInput,
-  handleCityInputChange,
-  citySuggestions,
-  handleCitySelect,
-  selectedWindDirections,
-  handleWindDirectionClick,
-  windDirectionDropdownOpen,
-  setWindDirectionDropdownOpen,
-  handleWindDirectionSelect,
-  setSelectedWindDirections,
-  windSpeed,
-  setWindSpeed,
-  fetchCitySuggestions,
-  setCitySuggestions, // Function to fetch city suggestions
-}) => {
+const SearchLocation = () => {
+  const {
+    cityInput,
+    handleCityInputChange,
+    citySuggestions,
+    setCitySuggestions,
+    handleCitySelect,
+    selectedWindDirections,
+    handleWindDirectionClick,
+    windDirectionDropdownOpen,
+    setWindDirectionDropdownOpen,
+    handleWindDirectionSelect,
+    setSelectedWindDirections,
+    windSpeed,
+    setWindSpeed,
+    fetchCitySuggestions,
+    coordinates,
+    setCoordinates
+  } = useKitesurfingInfoContext();
+
   const [inputValue, setInputValue] = useState(cityInput);
-  const [coordinates, setCoordinates] = useState(null); // State to hold coordinates
+  // const [coordinates, setCoordinates] = useState(null); // State to hold coordinates
 
   useEffect(() => {
     setInputValue(cityInput);
@@ -45,11 +53,6 @@ const SearchLocation = ({
     }
   };
 
-
-
-
-
-
   const handleKeyDown = async (e) => {
     if (e.key === 'Enter') {
       await handleSearch();
@@ -59,7 +62,38 @@ const SearchLocation = ({
   return (
     <div id="inputLabelComponent" className="flex justify-center gap-8">
       <div id="cityInputLabel" className="mb-4">
-        <label htmlFor="cityInput" className="block font-bold mb-2">Select City:</label>
+        <SearchCity
+          inputValue={inputValue}
+          handleInputChange={handleInputChange}
+          handleKeyDown={handleKeyDown}
+          handleSearch={handleSearch}
+          citySuggestions={citySuggestions}
+          handleCitySelect={handleCitySelect}
+        />
+        {/* <WindDirection
+          selectedWindDirections={selectedWindDirections}
+          handleWindDirectionClick={handleWindDirectionClick}
+          setWindDirectionDropdownOpen={setWindDirectionDropdownOpen}
+          windDirectionDropdownOpen={windDirectionDropdownOpen}
+          handleWindDirectionSelect={handleWindDirectionSelect}
+        /> */}
+        <WindSpeed
+          windSpeed={windSpeed}
+          setWindSpeed={setWindSpeed}
+        />
+        <div>
+          City: {coordinates && coordinates[2]}
+          <br />
+          Country: {coordinates && coordinates[3]}
+          <br />
+          Latitude: {coordinates && coordinates[0]}
+          <br />
+          Longitude: {coordinates && coordinates[1]}
+          <br />
+        </div>
+      </div>
+
+        {/* <label htmlFor="cityInput" className="block font-bold mb-2">Select City:</label>
         <input
           id="cityInput"
           type="text"
@@ -78,20 +112,8 @@ const SearchLocation = ({
               </li>
             ))}
           </ul>
-        )}
-        <div>
-          City: {coordinates && coordinates[2]}
-          <br />
-          Country: {coordinates && coordinates[3]}
-          <br />
-          Latitude: {coordinates && coordinates[0]}
-          <br />
-          Longitude: {coordinates && coordinates[1]}
-          <br />
-        </div>
-      </div>
-
-      <div id="windDirectionInputLabel" className="mb-4">
+        )} */}
+      {/* <div id="windDirectionInputLabel" className="mb-4">
         <label className="block font-bold mb-2">Select Wind Direction:</label>
         <div className="relative">
           <input
@@ -112,9 +134,9 @@ const SearchLocation = ({
             </div>
           )}
         </div>
-      </div>
+      </div> */}
 
-      <div id="windSpeedInputLabel" className="mb-4">
+      {/* <div id="windSpeedInputLabel" className="mb-4">
         <label className="block font-bold mb-2">Enter Minimum Wind Speed:</label>
         <div className="relative">
           <input
@@ -125,7 +147,7 @@ const SearchLocation = ({
           />
           <span className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">Knots</span>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

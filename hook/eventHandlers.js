@@ -1,10 +1,16 @@
-export const handleCityInputChange = (e, setCityInput) => {
-  setCityInput(e.target.value);
+export const handleCityInputChange = (e, setKitesurfingInfo) => {
+  setKitesurfingInfo(prevState => ({
+    ...prevState,
+    searchCity: e.target.value,
+  }));
 };
 
-export const handleCitySelect = (city, setSelectedCity, setCityInput) => {
-  setSelectedCity(city);
-  setCityInput("");
+export const handleCityClick = (city, setKitesurfingInfo) => {
+  setKitesurfingInfo(prevState => ({
+    ...prevState,
+    coordinates: { latitude: city.latitude, longitude: city.longitude },
+    searchCity: "",
+  }));
 };
 
 export const handleWindDirectionClick = (setWindDirectionDropdownOpen, windDirectionDropdownOpen) => {
