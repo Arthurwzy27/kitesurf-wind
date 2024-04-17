@@ -22,7 +22,11 @@ const WindDirection = () => {
       {windDropdownOpen && (
         <div className="absolute z-10 mt-1 w-full max-h-24 overflow-y-auto bg-white border border-gray-300 rounded-md shadow-md">
           {["N", "NE", "E", "SE", "S", "SW", "W", "NW"].map((direction, index) => (
-            <div key={index} className="flex items-center py-1 px-3 hover:bg-gray-100">
+            <div
+              key={index}
+              className="flex items-center py-1 px-3 hover:bg-gray-100 cursor-pointer"
+              // onChange={() => handleDirectionSelect(setKitesurfingInfo, selectedWindDirection, direction)}
+            >
               <input
                 type="checkbox"
                 id={direction}

@@ -39,7 +39,6 @@ export const handleDirectionSelect = (setKitesurfingInfo, selectedWindDirection,
 // WIND SPEED COMPONENT
 export const handleWindSpeedChange = (e, setKitesurfingInfo) => {
   const newWindSpeed = e.target.value;
-  console.log('newWindSpeed', newWindSpeed);
   setKitesurfingInfo(prevState => ({
     ...prevState,
     windSpeed: newWindSpeed,

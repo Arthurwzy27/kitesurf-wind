@@ -55,3 +55,43 @@ export const fetchAllDaysCity = async ({ setKitesurfingInfo, coordinates }) => {
     console.error("Error fetching kitesurfing info:", error);
   }
 };
+
+export const fetchAllHoursCity = async ({setKitesurfingInfo, coordinates}) => {
+  try {
+    if (!coordinates) {
+      throw new Error('Coordinates not available');
+    }
+    const { latitude, longitude } = coordinates;
+    const response = await axios.get(
+      `https://ensemble-api.open-meteo.com/v1/ensemble?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,temperature_80m&wind_speed_unit=kn&timeformat=unixtime&models=icon_seamless`
+    );
+    const {
+      time,
+      temperature_2m,
+      apparent_temperature,
+      weather_code,
+      wind_speed_10m,
+      wind_direction_10m,
+      temperature_80m,
+      wind_speed_unit
+    } = response.data.daily;
+
+    const hourlyData = time.map((date, index) => ({
+      time,
+      temperature_2m: temperature_2m[index],
+      apparent_temperature: apparent_temperature[index],
+      weather_code: weather_code[index],
+      wind_speed_10m: wind_speed_10m[index],
+      wind_direction_10m: wind_direction_10m[index],
+      temperature_80m: temperature_80m[index],
+      wind_speed_unit: wind_speed_unit[index],
+    }));
+    setKitesurfingInfo(prevState => ({
+      ...prevState,
+      hourlyData: hourlyData,
+    }));
+  } catch (error) {
+    console.error("Error fetching kitesurfing info:", error);
+  }
+
+}
