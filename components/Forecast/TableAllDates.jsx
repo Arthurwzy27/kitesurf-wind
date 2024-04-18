@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatDate } from '../utils/utils';
+import { formatDate } from '../../utils/utils';
 
 const TableAllDates = ({ searchCity, dailyData, getWindDirectionSymbol }) => {
   // if (!searchCity || searchCity.trim() === '' || !dailyData) {
@@ -18,7 +18,7 @@ const TableAllDates = ({ searchCity, dailyData, getWindDirectionSymbol }) => {
           </tr>
         </thead>
         <tbody className="w-full px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring focus:ring-blue-200 bg-gray-100 bg-opacity-70">
-        {/* <tbody className="bg-white divide-y divide-gray-200"> */}
+          {/* <tbody className="bg-white divide-y divide-gray-200"> */}
           {dailyData && dailyData.length > 0 &&
             dailyData.map((day, index) => (
               <tr key={index} className='text-center whitespace-nowrap'>

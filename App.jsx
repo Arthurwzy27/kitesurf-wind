@@ -6,8 +6,9 @@ import { findBestDays, getWindDirectionSymbol } from './utils/weatherUtils';
 import Header from './components/Header';
 import SearchLocation from './components/Search/SearchLocation';
 import BestDayCard from './components/BestDayCard';
-import TableAllDates from "./components/TableAllDates";
-import TableAllDates2 from "./components/TableAllDates2";
+import ForecastDisplay from './components/Forecast/ForecastDisplay';
+import TableAllDates from "./components/Forecast/TableAllDates";
+import TableAllDates2 from "./components/Forecast/TableAllDates2";
 
 const App = () => {
   const { kitesurfingInfo, setKitesurfingInfo } = useKitesurfingInfoContext();
@@ -60,11 +61,16 @@ const App = () => {
           dailyData={dailyData}
           getWindDirectionSymbol={getWindDirectionSymbol}
         /> */}
-        <TableAllDates2
+        <ForecastDisplay
+          searchCity={searchCity}
+          // dailyData={dailyData}
+          // getWindDirectionSymbol={getWindDirectionSymbol}
+        />
+        {/* <TableAllDates2
           searchCity={searchCity}
           dailyData={dailyData}
           getWindDirectionSymbol={getWindDirectionSymbol}
-        />
+        /> */}
       </div>
     </div>
   );

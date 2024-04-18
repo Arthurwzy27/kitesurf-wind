@@ -14,6 +14,7 @@ export const KitesurfingInfoProvider = ({ children }) => {
     windDropdownOpen: false,
     selectedWindDirection: [],
     windSpeed: "",
+    hourlyData:[],
   });
 
   return (

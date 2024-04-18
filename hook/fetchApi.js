@@ -56,28 +56,36 @@ export const fetchAllDaysCity = async ({ setKitesurfingInfo, coordinates }) => {
   }
 };
 
-export const fetchAllHoursCity = async ({setKitesurfingInfo, coordinates}) => {
+export const fetchAllHoursCity = async ({ setKitesurfingInfo, coordinates }) => {
   try {
     if (!coordinates) {
       throw new Error('Coordinates not available');
     }
     const { latitude, longitude } = coordinates;
     const response = await axios.get(
-      `https://ensemble-api.open-meteo.com/v1/ensemble?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,temperature_80m&wind_speed_unit=kn&timeformat=unixtime&models=icon_seamless`
+      `https://ensemble-api.open-meteo.com/v1/ensemble?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,weather_code,wind_speed_10m,wind_direction_10m,temperature_80m&wind_speed_unit=kn&models=icon_seamless`
     );
-    const {
-      time,
-      temperature_2m,
-      apparent_temperature,
-      weather_code,
-      wind_speed_10m,
-      wind_direction_10m,
-      temperature_80m,
-      wind_speed_unit
-    } = response.data.daily;
 
+    const { hourly } = response.data;
+    console.log('fetchAllHoursCity', hourly);
+
+    // Check if the hourly data is structured as expected
+    if (!Array.isArray(hourly.time) || !Array.isArray(hourly.temperature_2m)) {
+      throw new Error('Hourly data structure is not as expected');
+    }
+
+    const time = hourly.time;
+    const temperature_2m = hourly.temperature_2m;
+    const apparent_temperature = hourly.apparent_temperature || [];
+    const weather_code = hourly.weather_code || [];
+    const wind_speed_10m = hourly.wind_speed_10m || [];
+    const wind_direction_10m = hourly.wind_direction_10m || [];
+    const temperature_80m = hourly.temperature_80m || [];
+    const wind_speed_unit = hourly.wind_speed_unit || [];
+
+    // Now, you can map over the arrays
     const hourlyData = time.map((date, index) => ({
-      time,
+      date,
       temperature_2m: temperature_2m[index],
       apparent_temperature: apparent_temperature[index],
       weather_code: weather_code[index],
@@ -86,6 +94,7 @@ export const fetchAllHoursCity = async ({setKitesurfingInfo, coordinates}) => {
       temperature_80m: temperature_80m[index],
       wind_speed_unit: wind_speed_unit[index],
     }));
+
     setKitesurfingInfo(prevState => ({
       ...prevState,
       hourlyData: hourlyData,
@@ -93,5 +102,4 @@ export const fetchAllHoursCity = async ({setKitesurfingInfo, coordinates}) => {
   } catch (error) {
     console.error("Error fetching kitesurfing info:", error);
   }
-
 }
