@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 export const capitalizeFirstLetter = (word) => {
   // Check if the word is not empty
   if (word.length === 0) {
@@ -16,23 +14,30 @@ export const formatDate = (dateString) => {
   return date.toLocaleDateString('en-US', options);
 };
 
-
-export function useClickOutside(refs, handler) {
-  useEffect(() => {
-    const listener = (event) => {
-      refs.forEach((ref) => {
-        if (ref.current && !ref.current.contains(event.target)) {
-          handler(event);
-        }
-      });
-    };
-
-    document.addEventListener('mousedown', listener);
-    document.addEventListener('touchstart', listener);
-
-    return () => {
-      document.removeEventListener('mousedown', listener);
-      document.removeEventListener('touchstart', listener);
-    };
-  }, [refs, handler]);
+export const formatHour = (dateString) => {
+  const date = new Date(dateString);
+  const hour = date.getHours();
+  const ampm = hour >= 12 ? 'PM' : 'AM';
+  return `${hour % 12 || 12}${ampm}`;
 }
+
+
+// export function useClickOutside(refs, handler) {
+//   useEffect(() => {
+//     const listener = (event) => {
+//       refs.forEach((ref) => {
+//         if (ref.current && !ref.current.contains(event.target)) {
+//           handler(event);
+//         }
+//       });
+//     };
+
+//     document.addEventListener('mousedown', listener);
+//     document.addEventListener('touchstart', listener);
+
+//     return () => {
+//       document.removeEventListener('mousedown', listener);
+//       document.removeEventListener('touchstart', listener);
+//     };
+//   }, [refs, handler]);
+// }

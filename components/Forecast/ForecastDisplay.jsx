@@ -5,29 +5,6 @@ import TableAllHours from './TableAllHours';
 import { fetchAllHoursCity } from '../../hook/fetchApi';
 import { getWindDirectionSymbol } from '../../utils/weatherUtils';
 
-// const ForecastDisplay = () => {
-//   const { kitesurfingInfo, setKitesurfingInfo } = useKitesurfingInfoContext();
-//   const { coordinates, dailyData, hourlyData } = kitesurfingInfo;
-
-//   // Fetch hourly forecast data
-//   useEffect(() => {
-//     if (coordinates) {
-//       fetchAllHoursCity({ setKitesurfingInfo, coordinates });
-//     }
-//   }, [coordinates, setKitesurfingInfo]);
-
-//   return (
-//     <div>
-//       <h2 className="text-2xl font-semibold mb-4">Forecast Display</h2>
-//       {dailyData && <TableAllDates2 dailyData={dailyData} getWindDirectionSymbol={getWindDirectionSymbol} />} {/* Pass getWindDirectionSymbol here */}
-//       {hourlyData && <TableAllHours hourlyData={hourlyData} getWindDirectionSymbol={getWindDirectionSymbol} />}
-//     </div>
-//   );
-// };
-
-// export default ForecastDisplay;
-
-
 const ForecastDisplay = () => {
   const { kitesurfingInfo, setKitesurfingInfo } = useKitesurfingInfoContext();
   const { coordinates, dailyData, hourlyData } = kitesurfingInfo;

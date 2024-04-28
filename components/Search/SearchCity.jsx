@@ -12,7 +12,6 @@ const SearchCity = () => {
 
   return (
     <div className="relative">
-      <label className="block font-bold mb-2">City:</label>
       <input
         // className="w-full px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring focus:ring-blue-200 bg-gray-100 bg-opacity-70"
         className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring focus:ring-blue-200 backdrop-blur-sm bg-transparent shadow-lg"
@@ -29,7 +28,7 @@ const SearchCity = () => {
           bg-gradient-to-b from-transparent to-blur-bg opacity-90 backdrop-blur-xl
           focus:outline-none focus:ring focus:ring-blue-200 bg-gray-100 "
         >
-          {citySearchResult.map((city) => (
+          {citySearchResult?.map((city) => (
             <li
               key={city.id}
               className="cursor-pointer py-1 px-3 hover:bg-gray-200"

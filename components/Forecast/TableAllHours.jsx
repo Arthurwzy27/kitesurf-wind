@@ -37,6 +37,8 @@ const TableAllHours = ({ hourlyData, getWindDirectionSymbol }) => {
         <th className="px-6 py-3 font-medium bg-gray-50" colSpan="3">{formatDateHeader(date)}</th>
       </tr>
     );
+
+    console.log('TableAllHours - hourlyData', hourlyData);
     // Loop through specific hours
     specificHours.forEach((hour, hourIndex) => {
       const hourData = hourlyData.find(data => formatDate(data.date) === date && new Date(data.date).getHours() === hour);

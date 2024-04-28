@@ -1,14 +1,12 @@
-// App.js
 import React, { useEffect } from 'react';
 import { useKitesurfingInfoContext } from './context/kitesurfingInfoContext';
 import { fetchCities, fetchAllDaysCity } from './hook/fetchApi';
 import { findBestDays, getWindDirectionSymbol } from './utils/weatherUtils';
 import Header from './components/Header';
-import SearchLocation from './components/Search/SearchLocation';
 import BestDayCard from './components/BestDayCard';
-import ForecastDisplay from './components/Forecast/ForecastDisplay';
-import TableAllDates from "./components/Forecast/TableAllDates";
-import TableAllDates2 from "./components/Forecast/TableAllDates2";
+import TodayForecastCard from './components/Forecast/TodayForecastCard';
+import ForecastDisplay1 from './components/Forecast/testFile/ForecastDisplay1';
+
 
 const App = () => {
   const { kitesurfingInfo, setKitesurfingInfo } = useKitesurfingInfoContext();
@@ -22,11 +20,11 @@ const App = () => {
   } = kitesurfingInfo;
 
   useEffect(() => {
-    const fetchData = async () => { //Fetch a city to get its coordinates
+    const fetchData = async () => {
       await fetchCities({ searchCity, setKitesurfingInfo });
 
       if (coordinates) {
-        await fetchAllDaysCity({ setKitesurfingInfo, coordinates }); //With coordinates of a city, get forecast 16 days
+        await fetchAllDaysCity({ setKitesurfingInfo, coordinates });
       }
     };
 
@@ -35,7 +33,7 @@ const App = () => {
 
   useEffect(() => {
     if (dailyData && selectedWindDirection.length > 0 && windSpeed) {
-      const { suitableDays } = findBestDays(dailyData, selectedWindDirection, windSpeed); // Pass selectedWindDirection to findBestDays
+      const { suitableDays } = findBestDays(dailyData, selectedWindDirection, windSpeed);
       setKitesurfingInfo(prevState => ({
         ...prevState,
         bestDays: suitableDays,
@@ -43,34 +41,18 @@ const App = () => {
     }
   }, [dailyData, selectedWindDirection, windSpeed, setKitesurfingInfo]);
 
+
   return (
-    // <div className="min-h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-red-500">
-    // <div className="min-h-screen bg-gradient-to-br from-orange-400 to-orange-600">
-    // <div className="min-h-screen bg-gradient-to-br from-teal-400 to-teal-600">
-    // <div className="min-h-screen bg-gradient-to-br from-indigo-400 to-indigo-600">
     <div className="bg-cover bg-no-repeat bg-center min-h-screen" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1620152174993-40a74a7e24c2?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
+    {/* // <div className="bg-cover bg-no-repeat bg-center min-h-screen" style={{ backgroundImage: "url('https://img.freepik.com/free-vector/vintage-sea-nautical-seamless-pattern_225004-991.jpg?t=st=1713957688~exp=1713961288~hmac=defe73fdd7168373e4995dfac21c5b3b03789b4b72969aa7539d6495f1f2d69c&w=1480')" }}> */}
       <div className="container mx-auto py-8">
         <Header />
-        <SearchLocation />
+        <TodayForecastCard />
         <BestDayCard
           bestDays={bestDays}
           getWindDirectionSymbol={getWindDirectionSymbol}
         />
-        {/* <TableAllDates
-          searchCity={searchCity}
-          dailyData={dailyData}
-          getWindDirectionSymbol={getWindDirectionSymbol}
-        /> */}
-        <ForecastDisplay
-          searchCity={searchCity}
-          // dailyData={dailyData}
-          // getWindDirectionSymbol={getWindDirectionSymbol}
-        />
-        {/* <TableAllDates2
-          searchCity={searchCity}
-          dailyData={dailyData}
-          getWindDirectionSymbol={getWindDirectionSymbol}
-        /> */}
+        <ForecastDisplay1 />
       </div>
     </div>
   );

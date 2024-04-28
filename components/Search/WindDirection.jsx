@@ -8,7 +8,7 @@ const WindDirection = () => {
 
   return (
     <div className="relative">
-      <label className="block font-bold mb-2">Wind Direction:</label>
+      {/* <label className="block font-bold mb-2">Wind Direction:</label> */}
       <input
         type="text"
         readOnly
