@@ -11,8 +11,24 @@ export const handleCityClick = (city, setKitesurfingInfo) => {
     ...prevState,
     coordinates: { latitude: city.latitude, longitude: city.longitude },
     searchCity: "",
+    selectedCity: `${city.name} (${city.country})`,
+    selectedDay: null,
+    selectedHourlyData: null,
   }));
 };
+
+// export const handleDayClick = (day, index, hourlyData, setKitesurfingInfo) => {
+//   const selectedDate = day.date.split('T')[0];
+//   const filteredData = hourlyData?.filter(
+//     (hour) => hour?.date.split('T')[0] === selectedDate
+//   );
+//   setKitesurfingInfo(prevState => ({
+//     ...prevState,
+//     selectedDay: day,
+//     selectedDayIndex: index,
+//     selectedHourlyData: filteredData,
+//   }));
+// };
 
 // WIND DIRECTION COMPONENT
 export const toggleWindDropdown = (setKitesurfingInfo, windDropdownOpen) => {
@@ -39,7 +55,6 @@ export const handleDirectionSelect = (setKitesurfingInfo, selectedWindDirection,
 // WIND SPEED COMPONENT
 export const handleWindSpeedChange = (e, setKitesurfingInfo) => {
   const newWindSpeed = e.target.value;
-  console.log('newWindSpeed', newWindSpeed);
   setKitesurfingInfo(prevState => ({
     ...prevState,
     windSpeed: newWindSpeed,
